@@ -1,0 +1,101 @@
+# Humanities Doc Toolkit - Classifier (final draft)
+
+paths:
+  input_folder: ""            # 留空则运行时询问
+  output_folder: ""           # 留空则运行时询问
+  log_folder: "./logs"
+  backup_folder: "./backups"
+  temp_folder: "./temp"
+
+processing:
+  confidence:
+    min_threshold: 0.3
+    skip_low_confidence: true
+    detailed_logging: true
+
+  multithreading:
+    enabled: true
+    max_workers: 16
+
+  error_handling:
+    retry_attempts: 2
+    timeout_seconds: 30
+    continue_on_error: true
+    error_logging: true
+
+  performance:
+    enable_progress_bar: true
+    enable_memory_optimization: true
+    max_memory_usage_mb: 1024
+    gc_frequency: 10
+    batch_size: 20
+    max_files_per_session: -1
+
+pdf_processing:
+  extractor:
+    engine: "auto"                 # auto | pymupdf | pypdf2
+    suppress_warnings: true         # 关闭 PyPDF2 的 warning logger
+    silence_stderr: true            # ✅ 完全不在终端显示 unknown widths
+    fallback_to_other_engine: true  # PyMuPDF失败则回退PyPDF2
+
+  max_file_size_mb: 1000
+  max_pages_per_file: 20
+  page_range_start: 1
+  min_content_length: 100
+  extract_metadata: true
+  language_detection: true
+
+classification:
+  modes:
+    default_mode: "hybrid"
+    dynamic_mode:
+      auto_create_folders: true
+      min_folder_confidence: 0.5
+    hybrid_mode:
+      prefer_predefined: true
+      fallback_to_dynamic: true
+
+  predefined_categories:
+    古典哲学: ["philosophy", "ancient", "classical", "柏拉图", "亚里士多德"]
+    近代哲学: ["modern philosophy", "descartes", "kant", "hobbes", "笛卡尔", "康德"]
+    政治哲学: ["political philosophy", "leviathan", "social contract", "政治理论"]
+    德国历史: ["german history", "deutschland", "德国史", "german"]
+    英国历史: ["british history", "england", "英国史", "british"]
+    思想史: ["intellectual history", "history of ideas", "观念史"]
+    宗教研究: ["religion", "theology", "神学", "宗教哲学"]
+    语言学: ["linguistics", "language", "语法", "语音学"]
+    文学研究: ["literature", "literary", "文学理论", "文学批评"]
+
+file_management:
+  safety:
+    enable_backup: false      # ✅ 修复旧配置里的 flase 拼写错误 [1]
+    backup_folder: "./backups"
+    backup_retention_days: 7
+    backup_compression: false
+    max_backup_size_mb: 2000
+
+  operations:
+    conflict_resolution: "rename"
+    verify_moves: true
+    create_shortcuts: false
+    preserve_timestamps: true
+
+logging:
+  level: "INFO"
+  enable_file_logging: true
+  enable_console_logging: true
+  max_log_file_size_mb: 10
+  log_rotation_count: 5
+  detailed_api_logging: false
+
+system:
+  interface:
+    show_progress: true
+    enable_color_output: true
+    confirm_before_move: false
+    auto_cleanup: true
+  debug:
+    enable_debug_mode: false
+    verbose_logging: false
+    save_extracted_content: false
+    api_response_logging: false

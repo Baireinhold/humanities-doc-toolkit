@@ -1,0 +1,92 @@
+processing:
+  extraction:
+    start_page: 1
+    end_page: 10
+    max_text_length: 10000
+    prompt_text_max_chars: 2000
+
+  performance:
+    # 你要求至少支持到 32
+    max_workers: 16
+
+    # 你要求：API数量 ≥ 线程数 * 1.5
+    min_key_ratio: 1.5
+    enforce_key_ratio: true
+    max_workers_cap: 32
+
+directories:
+  paths:
+    output: "output"
+    logs: "logs"
+    backup: "backup"
+
+  file_filtering:
+    allowed_extensions: [".pdf"]
+    max_file_size_mb: 500
+    min_file_size_kb: 50
+    exclude_patterns: ["*temp*", "*cache*", ".*", "*_backup*"]
+    include_subdirs: false
+    skip_existing: true
+
+ai_text_policy:
+  language:
+    mode: "keep_original"     # keep_original | translate
+    target: ""                # translate 时生效，如: "zh" / "en" / "ja" / "fr"...
+    fields: ["title", "publisher", "journal", "organization"]
+
+file_naming:
+  naming_patterns:
+    book: "{author}_({title})_{publisher}_{year}"
+    paper: "{author}_({title})_{journal}_{year}"
+    others: "{title}_{year}"
+    report: "{title} - {organization} ({year})"
+    manual: "{title} - {version}"
+    unknown: "{title}_{timestamp}"
+
+  filename_rules:
+    max_length: 200
+    normalize_spaces: true
+    trim_whitespace: true
+    case_style: "title"
+    character_replacements:
+      ":": "-"
+      "：": "-"
+      "<": "《"
+      ">": "》"
+      "|": "_"
+      "?": ""
+      "*": ""
+      "/": "_"
+      "\\": "_"
+
+  special_handling:
+    ocr_prefix: "[需要OCR]"
+    problem_prefix: "[待处理]"
+    error_prefix: "[处理失败]"
+    duplicate_suffix: "_{counter}"
+    intelligent_prefix: true
+    avoid_unknown_values: true
+
+  default_values:
+    title: ""
+    author: ""
+    year: ""
+    publisher: ""
+    journal: ""
+    organization: ""
+    version: "v1.0"
+    timestamp: "{datetime}"
+
+output_management:
+  create_subfolders: true
+  subfolder_names:
+    success: "处理成功"
+    failed: "处理失败"
+    problem: "问题文件"
+
+logging:
+  level: "INFO"
+  file_logging: true
+  max_log_size_mb: 10
+  backup_count: 5
+  log_format: "%(asctime)s - %(levelname)s - %(message)s"

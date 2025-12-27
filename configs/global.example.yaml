@@ -1,0 +1,103 @@
+ai_services:
+  active_service: "deepseek"
+  api_request_timeout: 30
+
+  # 统一的服务命名：openai/claude/gemini/deepseek/kimi/glm
+  services:
+    deepseek:
+      enabled: true
+      base_url: "https://api.deepseek.com/v1/chat/completions"
+      model: "deepseek-chat"
+      max_tokens: 2000
+      temperature: 0.1
+      api_keys:
+        # 主力API (4个)
+        - key: "sk-your-deepseek-key-1"
+          name: "deepseek_key_1"
+          enabled: true
+          status: "active"           # 新增状态字段
+          priority: 1                # 优先级：1=主力，2=备用
+          daily_limit: 100000
+          current_usage: 0
+          error_count: 0             # 新增错误计数
+        - key: "sk-your-deepseek-key-2"
+          name: "deepseek_key_2"
+          enabled: true
+          status: "active"           
+          priority: 1                
+          daily_limit: 100000
+          current_usage: 0
+          error_count: 0       
+        - key: "sk-your-deepseek-key-3"
+          name: "deepseek_key_3"
+          enabled: true
+          status: "active"           
+          priority: 1                
+          daily_limit: 100000
+          current_usage: 0
+          error_count: 0      
+        - key: "sk-your-deepseek-key-4"
+          name: "deepseek_key_4"
+          enabled: true
+          status: "active"           
+          priority: 1                
+          daily_limit: 100000
+          current_usage: 0
+          error_count: 0              
+
+
+    openai:
+      enabled: true
+      base_url: "https://api.openai.com/v1/chat/completions"
+      model: "gpt-4o-mini"
+      max_tokens: 2000
+      temperature: 0.1
+      api_keys:
+        - name: "openai_1"
+          key: "sk-your-openai-key-1"
+          enabled: true
+
+    claude:
+      enabled: false
+      base_url: "https://api.anthropic.com/v1/messages"
+      model: "claude-3-haiku-20240307"
+      max_tokens: 2000
+      temperature: 0.1
+      api_keys:
+        - name: "claude_1"
+          key: "sk-ant-your-claude-key-1"
+          enabled: true
+
+    gemini:
+      enabled: false
+      base_url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent"
+      model: "gemini-1.5-pro"
+      max_tokens: 2000
+      temperature: 0.1
+      api_keys:
+        - name: "gemini_1"
+          key: "your-gemini-api-key-1"
+          enabled: true
+
+    kimi:
+      enabled: false
+      base_url: "https://api.moonshot.cn/v1/chat/completions"
+      model: "moonshot-v1-8k"
+      max_tokens: 2000
+      temperature: 0.1
+      api_keys:
+        - name: "kimi_1"
+          key: "sk-your-kimi-key-1"
+          enabled: true
+
+    glm:
+      enabled: false
+      # 这里填“兼容 OpenAI chat/completions 的 GLM 网关/中转地址”
+      base_url: "https://your-glm-openai-compatible-endpoint/v1/chat/completions"
+      model: "glm-4"
+      max_tokens: 2000
+      temperature: 0.1
+      api_keys:
+        - name: "glm_1"
+          key: "your-glm-key-1"
+          enabled: true

@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "humanities-doc-toolkit"
+version = "0.1.0"
+description = "Humanities Doc Toolkit: AI-assisted PDF renaming/classification/sorting pipeline"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Baireinhold"}]
+dependencies = [
+  "pyyaml",
+  "colorama",
+  "tqdm",
+  "requests",
+
+  # PDF/Text extraction
+  "PyMuPDF",
+  "PyPDF2",
+  "pdfplumber",
+
+  # Office/Text encoding
+  "python-docx",
+  "chardet",
+
+  # System stats (Renamer uses it)
+  "psutil",
+
+  # Requests retry backend (you already import from urllib3.util.retry)
+  "urllib3"
+]
+
+[project.scripts]
+hdt = "hdt.cli:main"
+hdt-renamer = "hdt.renamer.cli:main"
+hdt-classifier = "hdt.classifier.cli:main"
+hdt-sorter = "hdt.sorter.cli:main"
+hdt-classifier-apply = "hdt.classifier.cli:apply_main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,76 @@
+# Humanities Doc Toolkit - Sorter (v0.1)
+# 两轮分拣：第一轮批量文件名筛选 + 第二轮内容深度分析 [2]
+# 新增：fast_first_round 仅跑第一轮（快速探索性研究）[1]
+
+document_sorting:
+  scanning:
+    recursive_scan: true
+    supported_formats: [".pdf", ".docx", ".doc", ".txt", ".md", ".epub", ".mobi", ".rtf"]
+    max_depth: 10
+    skip_hidden: true
+    min_file_size_kb: 10
+    max_file_size_mb: 500
+
+  filtering_modes:
+    fast_first_round:
+      name: "快速筛选（仅第一轮）"
+      description: "只做批量文件名筛选，适合探索性研究"
+      first_round_threshold: 0.30
+      second_round_threshold: 0.70
+      batch_size: 16
+      enable_universal_enhancement: true
+      run_second_round: false
+
+    precise:
+      name: "精细筛选"
+      description: "高精度严格匹配（适合专业研究）"
+      first_round_threshold: 0.40
+      second_round_threshold: 0.80
+      batch_size: 4
+      enable_universal_enhancement: false
+      run_second_round: true
+
+    balanced:
+      name: "平衡筛选"
+      description: "平衡效率和准确性（推荐）"
+      first_round_threshold: 0.30
+      second_round_threshold: 0.70
+      batch_size: 8
+      enable_universal_enhancement: true
+      run_second_round: true
+
+    broad:
+      name: "宽泛筛选"
+      description: "高召回率不遗漏（适合探索性研究）"
+      first_round_threshold: 0.20
+      second_round_threshold: 0.60
+      batch_size: 16
+      enable_universal_enhancement: true
+      run_second_round: true
+
+ai:
+  # 是否在启动时显示服务选择菜单（你的原版 ui_config.interaction.show_service_selection）[1][2]
+  show_service_selection: true
+  # 是否显示筛选模式选择菜单（你的原版 show_mode_selection）[1]
+  show_mode_selection: true
+  # 默认模式
+  default_mode: "balanced"
+
+runtime:
+  # 用户可运行时调整线程数；默认读取 global.yaml 的 ai_services.threading_config.max_threads（若存在）[1]
+  max_threads_default: 4
+  # 输出操作：copy / move（你要求 copy）[1]
+  operation_mode: "copy"
+
+folder_naming:
+  auto_generate: true
+  max_name_length: 30
+  add_timestamp: true
+  timestamp_format: "%m%d_%H%M"
+  forbidden_chars: ['<', '>', ':', '"', '/', '\\', '|', '?', '*']
+
+logging:
+  level: "INFO"
+  log_dir: "./logs"
+  generate_detailed_report: true
+  report_filename: "智能分拣详细报告.txt"
