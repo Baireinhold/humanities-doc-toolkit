@@ -973,8 +973,8 @@ class SorterEngine:
         print(f"{Fore.CYAN}👨‍💻 作者: {__author__} | {__email__}{Style.RESET_ALL}")
         print(f"{Fore.CYAN}🔗 {__github__}{Style.RESET_ALL}")
         print(f"{Fore.WHITE}提示:{Style.RESET_ALL}")
-        print(f"{Fore.WHITE}- 默认操作是 copy（保留原文件，降低误操作风险）[6]{Style.RESET_ALL}")
-        print(f"{Fore.WHITE}- 两轮筛选：文件名批量 + 内容深度（可选 fast_first_round 仅第一轮）[6]{Style.RESET_ALL}")
+        print(f"{Fore.WHITE}- 默认操作是 copy（保留原文件，降低误操作风险）{Style.RESET_ALL}")
+        print(f"{Fore.WHITE}- 两轮筛选：文件名批量 + 内容深度（可选 fast_first_round 仅第一轮）{Style.RESET_ALL}")
         print(f"{Fore.MAGENTA}{'='*60}{Style.RESET_ALL}")
         import logging
         logging.getLogger("PyPDF2").setLevel(logging.ERROR)
