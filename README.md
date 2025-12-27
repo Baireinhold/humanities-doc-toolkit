@@ -100,6 +100,41 @@ Humanities Doc Toolkit 是一套面向人文学科研究与文献治理的命令
 失败排查：
 - 查看 `run_macos_launch.log`
 - 若系统提示“无法打开/来源不明”，在系统设置 → 隐私与安全 中选择“仍要打开”
+-  macOS（新手一键命令）
+
+### 1）最推荐：在终端一键启动（无需理解任何 Python）
+1. 打开 **终端**（Terminal）
+2. 进入项目目录（把路径替换成你的项目所在位置）：
+```bash
+cd "/path/to/humanities-doc-toolkit"
+```
+3. 直接运行一键脚本：
+```bash
+bash run.command
+```
+
+说明：`run.command` 会写日志到 `run_macos_launch.log`，并自动创建/复用 `.venv` 安装依赖后启动主菜单 [16]。
+
+---
+
+### 2）如果提示“权限不足/不能执行”：一键修复再启动
+```bash
+cd "/path/to/humanities-doc-toolkit"
+chmod +x run.command
+bash run.command
+```
+
+---
+
+### 3）如果提示 `bash\r` 或类似换行符问题：一键修复（常见于脚本从 Windows 拷贝过来）
+```bash
+cd "/path/to/humanities-doc-toolkit"
+sed -i '' $'s/\r$//' run.command
+sed -i '' $'s/\r$//' run.sh
+bash run.command
+```
+
+### 4）之后再访达里双击run.command运行即可
 
 ### 3.3 Linux / WSL（推荐：终端运行）
 进入项目根目录后运行：
